@@ -7,6 +7,7 @@ Title::Title()
 
 void Title::init()
 {
+
 		//タイトルに関して初期化
 	m_title = L"弾幕を避けるゲーム";
 
