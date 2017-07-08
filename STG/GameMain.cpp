@@ -1,3 +1,5 @@
+#include "GameMain.hpp"
+
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "BackGround.hpp"

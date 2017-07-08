@@ -79,27 +79,45 @@
     <Filter Include="リソース ファイル\Documents">
       <UniqueIdentifier>{a25217a7-5a2a-41c0-b325-0e75a9b01799}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes">
+      <UniqueIdentifier>{12a7638b-f64c-4242-b42b-58dcfaec1baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scenes\GameMain">
+      <UniqueIdentifier>{ed1af1c0-caea-431a-9b74-bc5c26f88736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes">
+      <UniqueIdentifier>{11d7f4b7-0643-4afd-b276-648eb40b1b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\GameMain">
+      <UniqueIdentifier>{da375762-3930-47a9-af3b-2d2ecc61f283}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Title.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="GameMain.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Select.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="GameMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Scenes\GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Scenes\GameMain</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
+      <Filter>ソース ファイル\Scenes\GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Result.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -419,19 +437,31 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scene.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Manager.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scenes\GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scenes\GameMain</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.hpp">
+      <Filter>ヘッダー ファイル\Scenes\GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMain.hpp">
+      <Filter>ヘッダー ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Select.hpp">
+      <Filter>ヘッダー ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.hpp">
+      <Filter>ヘッダー ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.hpp">
+      <Filter>ヘッダー ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

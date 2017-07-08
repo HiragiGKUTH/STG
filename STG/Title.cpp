@@ -1,4 +1,4 @@
-#include "Manager.hpp"
+#include "Title.hpp"
 
 Title::Title()
 {

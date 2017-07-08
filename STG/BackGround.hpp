@@ -1,8 +1,9 @@
-#include "Manager.hpp"
+#pragma once
+#include <Siv3D.hpp>
 
-class GameMain::BackGround
+class BackGround
 {
 private:
 	Vec2 m_pos;
-
 };
+

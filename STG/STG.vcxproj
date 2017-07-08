@@ -166,7 +166,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Select.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
@@ -285,10 +287,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.hpp" />
+    <ClInclude Include="Define.hpp" />
     <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="GameMain.hpp" />
     <ClInclude Include="Manager.hpp" />
     <ClInclude Include="Player.hpp" />
-    <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="Result.hpp" />
+    <ClInclude Include="Select.hpp" />
+    <ClInclude Include="Title.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

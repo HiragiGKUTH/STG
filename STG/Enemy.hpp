@@ -1,8 +1,10 @@
-#include "Manager.hpp"
+#pragma once
+#include <Siv3D.hpp>
 
-class GameMain::Enemy
+class Enemy
 {
 private:
 	Vec2 m_pos;
-
+public:
+	Enemy();
 };
