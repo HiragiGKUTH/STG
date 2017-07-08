@@ -1,7 +1,7 @@
 #include <Siv3D.hpp>
 #include <HamFramework.hpp>
-
 #pragma once
+
 struct CommonData
 {
 	int g_cnt = 0;	//ゲーム全体のカウンタ

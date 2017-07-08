@@ -19,11 +19,15 @@ void GameMain::init()
 
 void GameMain::update()
 {
-
+	m_background->Update();
+	m_enemy->Update();
+	m_player->Update();
 }
 
 void GameMain::draw() const
 {
-
+	m_background->Draw();
+	m_enemy->Draw();
+	m_player->Draw();
 }
 

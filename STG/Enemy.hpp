@@ -7,4 +7,6 @@ private:
 	Vec2 m_pos;
 public:
 	Enemy();
+	void Update();
+	void Draw();
 };

@@ -5,5 +5,9 @@ class BackGround
 {
 private:
 	Vec2 m_pos;
+public:
+	BackGround();
+	void Update();
+	void Draw();
 };
 

@@ -20,7 +20,7 @@ void Title::init()
 		{L"コンフィグ"},
 		{L"終了"},
 	};
-	for (size_t i = 0; i < m_strings.size(); i++)
+	for (auto i : step(m_strings.size()))
 	{
 		Vec2 tmp;
 		tmp.x = 100 + (i * 16);
@@ -35,7 +35,7 @@ void Title::update()
 	if (Input::KeyUp.clicked) m_select--;
 	if (Input::KeyDown.clicked) m_select++;
 	m_select %= m_strings.size();
-	for(size_t i = 0;i < m_strings.size();i++)
+	for(auto i : step(m_strings.size()))
 	{
 		if (i == m_select)
 			m_pos[i].x = 100 + (i * 16) + 20;
@@ -59,6 +59,6 @@ void Title::update()
 void Title::draw() const
 {
 	FontAsset(L"Title")(m_title).draw(100, 60, Palette::Aquamarine);
-	for (size_t i = 0; i < m_strings.size(); i++)
+	for (auto i : step(m_strings.size()))
 		FontAsset(L"TitleSelect")(m_strings[i]).draw(m_pos[i]);
 }

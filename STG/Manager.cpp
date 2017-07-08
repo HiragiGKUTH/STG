@@ -5,7 +5,6 @@
 #include "Title.hpp"
 #include "Select.hpp"
 #include "GameMain.hpp"
-#include "Result.hpp"
 
 bool Manager::Init()
 {
@@ -16,11 +15,13 @@ bool Manager::Init()
 	FontAsset::Register(L"Title", 64);
 	FontAsset::Register(L"TitleSelect", 32);
 	FontAsset::Register(L"SelectItems", 14);
+	FontAsset::Register(L"Debug", 12);
 
 
 	//Add scenes
 	scene.add<Title>(L"Title");
 	scene.add<Select>(L"Select");
+	scene.add<GameMain>(L"GameMain");
 	return true;
 }
 

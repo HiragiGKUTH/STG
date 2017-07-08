@@ -117,9 +117,6 @@
     <ClCompile Include="Manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
@@ -456,9 +453,6 @@
       <Filter>ヘッダー ファイル\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Title.hpp">
-      <Filter>ヘッダー ファイル\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Result.hpp">
       <Filter>ヘッダー ファイル\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Define.hpp">
