@@ -288,6 +288,7 @@
     <ClInclude Include="BackGround.hpp" />
     <ClInclude Include="Define.hpp" />
     <ClInclude Include="Enemy.hpp" />
+    <ClInclude Include="GameDefine.hpp" />
     <ClInclude Include="GameMain.hpp" />
     <ClInclude Include="Manager.hpp" />
     <ClInclude Include="Player.hpp" />

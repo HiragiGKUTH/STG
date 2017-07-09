@@ -1,3 +1,4 @@
+#include "GameDefine.hpp"
 #include "GameMain.hpp"
 
 #include "Player.hpp"
@@ -7,27 +8,23 @@
 
 GameMain::GameMain()
 {
-	m_player = new Player();
-	m_enemy = new Enemy();
-	m_background = new BackGround();
+	
 }
 
 void GameMain::init()
 {
-
+	Create<Player>();
+	Create<Enemy>();
+	Create<BackGround>();
 }
 
 void GameMain::update()
 {
-	m_background->Update();
-	m_enemy->Update();
-	m_player->Update();
+	TaskCall::All::Update(CallGroup::CallGroup_Update);
 }
 
 void GameMain::draw() const
 {
-	m_background->Draw();
-	m_enemy->Draw();
-	m_player->Draw();
+	TaskCall::All::Update(CallGroup::CallGroup_Draw);
 }
 

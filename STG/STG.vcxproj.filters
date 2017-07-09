@@ -458,5 +458,8 @@
     <ClInclude Include="Define.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="GameDefine.hpp">
+      <Filter>ヘッダー ファイル\Scenes\GameMain</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
