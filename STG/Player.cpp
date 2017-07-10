@@ -3,7 +3,7 @@
 #include "Player.hpp"
 #include <rnfs.h>
 
-class Shot : public Task
+class Shot_p : public Task
 {
 private:
 	Vec2 m_pos;
@@ -12,10 +12,13 @@ private:
 	Circle m_col;
 	TaskCall m_update;
 	TaskCall m_draw;
+
+	int m_kind;
 public:
 	Shot() {}
-	Shot(Vec2 pos,double speed) : Task()
+	Shot(Vec2 pos,double speed,int kind) : Task()
 		, m_pos(pos)
+		, m_kind(kind)
 		, m_update(this,&Shot::Update,CallGroup_Update)
 		, m_draw(this,&Shot::Draw,CallGroup_Draw,CallPriority_Player_Shot)
 		, SPEED(speed){}
@@ -77,8 +80,8 @@ void Player::Update()
 	m_pos += m_vel;
 
 		//ƒVƒ‡ƒbƒg“o˜^
-	if (z && m_cnt%6 == 0) Create<Shot>(m_pos, 16.0);
-	
+	if (z && m_cnt%6 == 0) Create<Shot_p>(m_pos, 16.0);
+
 	m_col = Circle(m_pos, 3.0);
 }
 
