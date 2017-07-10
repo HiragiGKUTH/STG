@@ -15,12 +15,11 @@ private:
 
 	int m_kind;
 public:
-	Shot() {}
-	Shot(Vec2 pos,double speed,int kind) : Task()
+	Shot_p(Vec2 pos,double speed,int kind) : Task()
 		, m_pos(pos)
 		, m_kind(kind)
-		, m_update(this,&Shot::Update,CallGroup_Update)
-		, m_draw(this,&Shot::Draw,CallGroup_Draw,CallPriority_Player_Shot)
+		, m_update(this,&Shot_p::Update,CallGroup_Update)
+		, m_draw(this,&Shot_p::Draw,CallGroup_Draw,CallPriority_Player_Shot)
 		, SPEED(speed){}
 private:
 	void Update()
@@ -46,7 +45,7 @@ Player::Player() : Task()
 	m_SPEED = 6.0;
 	m_pos = Vec2(Window::Width() / 2, Window::Height() / 2);
 	m_vel = Vec2(0, 0);
-	m_col = Circle(m_pos, 3.0);
+	m_col = Circle(m_pos, 24.0);
 	m_anim = Rect(0, 0, 32, 32);	//‰¼
 }
 
@@ -80,9 +79,9 @@ void Player::Update()
 	m_pos += m_vel;
 
 		//ƒVƒ‡ƒbƒg“o˜^
-	if (z && m_cnt%6 == 0) Create<Shot_p>(m_pos, 16.0);
+	if (z && m_cnt%6 == 0) Create<Shot_p>(m_pos, 16.0,0);
 
-	m_col = Circle(m_pos, 3.0);
+	m_col = Circle(m_pos, 24.0);
 }
 
 void Player::Draw()

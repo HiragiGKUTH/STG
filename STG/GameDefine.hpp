@@ -8,9 +8,9 @@ enum CallGroup
 
 enum CallPriority
 {
-	CallPriority_Enemy,
-	CallPriority_Enemy_Shot,
-	CallPriority_Player,
-	CallPriority_Player_Shot,
 	CallPriority_BackGround,
+	CallPriority_Player_Shot,
+	CallPriority_Player,
+	CallPriority_Enemy_Shot,
+	CallPriority_Enemy,
 };

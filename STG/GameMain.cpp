@@ -20,7 +20,9 @@ void GameMain::init()
 
 void GameMain::update()
 {
+	ClearPrint();
 	TaskCall::All::Update(CallGroup::CallGroup_Update);
+	Task::All::Update();
 }
 
 void GameMain::draw() const

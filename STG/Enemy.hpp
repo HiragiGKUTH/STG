@@ -7,7 +7,7 @@ enum MovePattern
 {
 	Linier,
 	Sin,
-}
+};
 
 class Enemy : public Task
 {
@@ -22,6 +22,7 @@ private:
 	Vec2 m_vel;
 	Circle m_col;
 	Rect m_anim;
+	int m_hp;
 
 	int cnt;
 	int state;
