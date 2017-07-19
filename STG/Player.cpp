@@ -6,26 +6,34 @@
 class Shot_p : public Task
 {
 private:
-	Vec2 m_pos;
-	Vec2 m_vel;
-	double SPEED;
-	Circle m_col;
+		//タスクシステム用
 	TaskCall m_update;
 	TaskCall m_draw;
 
-	int m_kind;
+	Vec2 m_pos;		//座標
+	Vec2 m_vel;		//速度
+	double m_SPEED;	//速さ
+	double m_ang;	//角度
+	Circle m_col;	//当たり判定半径
+
+	int m_cnt;		//カウンタ
+	int m_kind;		//挙動の種類
+	bool m_hit;		//何かに当たったかどうかのフラグ
 public:
-	Shot_p(Vec2 pos,double speed,int kind) : Task()
+	Shot_p(Vec2 pos,double speed,double ang,int kind) : Task()
 		, m_pos(pos)
+		, m_SPEED(speed)
+		, m_ang(ang)
 		, m_kind(kind)
 		, m_update(this,&Shot_p::Update,CallGroup_Update)
-		, m_draw(this,&Shot_p::Draw,CallGroup_Draw,CallPriority_Player_Shot)
-		, SPEED(speed){}
+		, m_draw(this,&Shot_p::Draw,CallGroup_Draw,CallPriority_Player_Shot){}
 private:
 	void Update()
 	{
-		m_vel = Vec2(0, -SPEED);
-		m_pos += m_vel;
+		m_cnt++;
+		m_vel = m_vel.Up;
+		m_vel.rotate(m_ang);
+		m_pos.moveBy(m_vel*m_SPEED);
 		m_col = Circle(m_pos, 8.0);
 		if (m_pos.y < 0) this->Destroy();
 	}
@@ -59,29 +67,21 @@ void Player::Update()
 	bool z	   = Input::KeyZ.pressed;
 	bool shift = Input::KeyShift.pressed;
 	double move = (right && (up || down)) || (left && (up || down)) ? m_SPEED*0.71 : m_SPEED;
-	move *= shift ? 0.4 : 1.0;
+	move *= shift ? 0.5 : 1.0;
 	m_vel = Vec2(0, 0);
 	m_cnt++;
 
-		//移動ルーチン 要改善
-	if (right)			m_vel = Vec2(move, 0);
-	if (left)			m_vel = Vec2(-move, 0);
-	if (up)				m_vel = Vec2(0, -move);
-	if (down)			m_vel = Vec2(0, move);
-	if (right && up)	m_vel = Vec2(move, -move);
-	if (right && down)	m_vel = Vec2(move, move);
-	if (left && up)		m_vel = Vec2(-move, -move);
-	if (left && down)	m_vel = Vec2(-move, move);
-		//左右、上下が同時に押されるなら止める
-	if (up && down)		m_vel = Vec2(m_vel.x, 0);
-	if (right && left)	m_vel = Vec2(0, m_vel.y);
-		//実際の移動
-	m_pos += m_vel;
+		//移動ルーチン
+	m_vel.x += right ? move : left ? -move : 0;			//キー入力で制御
+	m_vel.y += down  ? move : up   ? -move : 0;
+	m_vel = up && down    ? Vec2(m_vel.x, 0) : m_vel;	//左右、上下が同時に押されるなら止める
+	m_vel = right && left ? Vec2(0, m_vel.y) : m_vel;
+	m_pos += m_vel;										//実際の移動
 
 		//ショット登録
-	if (z && m_cnt%6 == 0) Create<Shot_p>(m_pos, 16.0,0);
+	if (z && m_cnt%6 == 0) Create<Shot_p>(m_pos, 16.0,Radians(0),0);
 
-	m_col = Circle(m_pos, 24.0);
+	m_col = Circle(m_pos, 12.0);
 }
 
 void Player::Draw()

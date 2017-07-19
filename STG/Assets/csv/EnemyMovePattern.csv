@@ -1,0 +1,12 @@
+ID,0,,,,,
+MoveStr,60,120,180,240,300,360
+MoveDur,50,50,50,50,50,50
+Target,UpperRnd,UpperRnd,UpperRnd,UpperRnd,UpperRnd,UpperRnd
+Type,sin,sin,sin,sin,sin,sin
+Loop,TRUE,,,,,
+ID,1,,,,,
+MoveStr,60,180,300,420,540,660
+MoveDur,110,110,110,110,110,110
+Target,UpperRnd,UpperRnd,UpperRnd,UpperRnd,UpperRnd,UpperRnd
+Type,cos,cos,cos,cos,cos,cos
+Loop,TRUE,,,,,

@@ -2,6 +2,12 @@
 #include <Siv3D.hpp>
 #include <rnfs.h>
 
+enum p_ShotKind
+{
+	Straight,
+	Traciking,
+};
+
 class Player : public Task
 {
 private:

@@ -14,9 +14,10 @@ GameMain::GameMain()
 void GameMain::init()
 {
 	Create<Player>();
-	Create<Enemy>();
+	Create<Enemy>(m_data->ID);
 	Create<BackGround>();
 }
+
 
 void GameMain::update()
 {
