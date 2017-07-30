@@ -97,13 +97,14 @@ void Enemy::Update(){
 }
 
 void Enemy::ManagePattern(){
-		//弾幕パターン制御
+		//弾幕制御
 	switch (m_kind){
 		case 0:{	//テスト弾幕1 さとり妖怪のアレ
-			if (m_cnt % 1 == 0) {
-				int way = 4;
+			if (m_pattern_cnt == m_movedata[m_pattern_seek].start) {
+				int way = 36;
 				for (int i = 0; i < way; i++)
-					Create<Shot_e>(m_pos, (double)(m_cnt % 30)/40 + 2, Radians((360 / way)*i)+Radians(m_cnt), 0);
+					for(int j = 0;j < 3;j++)
+						Create<Shot_e>(m_pos, (double)(m_cnt % 30)/40 + 2+j*0.5, Radians((360 / way)*i)+Radians(m_cnt), 0);
 			}
 			break;
 		}
@@ -144,22 +145,23 @@ void Enemy::ManagePattern(){
 		//移動制御
 	if (m_pattern_loop) {
 		m_pattern_cnt %= m_pattern_len;
-		if (m_pattern_seek >= m_movedata.size() - 1) {
+		if (m_pattern_seek == m_movedata.size()-1) {
 			m_pattern_seek = 0;
 			m_pattern_cnt = 0;
-			m_pattern_tmp = 0;
+			//	m_pattern_tmp = 0;
 		}
-	}//アニメーションループが有効ならば戻す
-		
+	}
 		//移動開始時刻になったなら加速度を設定する
 	if (m_movedata[m_pattern_seek].start == m_pattern_cnt) {
 		Vec2 distance = m_pos - m_movedata[m_pattern_seek].target;	//移動先と現在位置の距離を求める(pixel)
-		double duration = m_movedata[m_pattern_seek].dur;				//目標移動時間(frame)
-		m_acc = Vec2((2*distance)/(duration*duration));					//加速度を計算
-		m_vel = -Vec2((2*distance)/(duration));							//初速度を計算
+		double duration = m_movedata[m_pattern_seek].dur;			//目標移動時間(frame)
+		m_acc = Vec2((2.0*distance)/(duration*duration));				//加速度を計算
+		m_v0 = -Vec2((2.0*distance)/(duration));						//初速度を計算
 		m_pattern_seek++;											//次の移動に備える
+		m_pattern_tmp = 0;
 	}
-	m_pattern_tmp++;
+
+
 	Move(m_movedata[m_pattern_seek]);
 
 	Println(L"Enemy Pos ", m_pos);
@@ -169,7 +171,7 @@ void Enemy::ManagePattern(){
 }
 
 void Enemy::Move(MoveData arg){
-	m_vel += m_acc;
+	m_vel = m_v0 + m_acc*m_pattern_tmp;
 	m_pos += m_vel;
 }
 

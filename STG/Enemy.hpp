@@ -24,6 +24,7 @@ private:
 		//敵に関するデータ
 	Vec2 m_pos;			//座標
 	Vec2 m_vel;			//速度
+	Vec2 m_v0;
 	Vec2 m_acc;			//加速度
 	Circle m_col;		//あたり判定半径
 	Rect m_anim;		//アニメーション用変数
