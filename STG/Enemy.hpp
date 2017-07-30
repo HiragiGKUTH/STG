@@ -24,6 +24,7 @@ private:
 		//敵に関するデータ
 	Vec2 m_pos;			//座標
 	Vec2 m_vel;			//速度
+	Vec2 m_acc;			//加速度
 	Circle m_col;		//あたり判定半径
 	Rect m_anim;		//アニメーション用変数
 	int m_hp;			//体力
@@ -42,13 +43,15 @@ private:
 		int start;		//移動開始フレーム
 		int dur;		//移動完了までのフレーム数
 		Vec2 target;	//移動先の座標
+		double a;		//移動時の加速度
+		double vo;		//移動時の初速度
 	}MoveData;
 		//移動データの配列
 	Array<MoveData> m_movedata;
 private:
 	void InitPattern();
 	void ManagePattern();
-	void Move(MoveData arg,int pastframe);
+	void Move(MoveData arg);
 public:
 	Enemy(int kind);
 	void Update();

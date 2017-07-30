@@ -31,9 +31,8 @@ private:
 		m_pos += m_vel*m_SPEED;
 		m_col = Circle(m_pos, 4.0);
 		if (m_pos.y < 0 || Window::Height() < m_pos.y
-			|| m_pos.x < 0 || Window::Width() < m_pos.x) {
+		 || m_pos.x < 0 || Window::Width()  < m_pos.x) 
 			this->Destroy();
-		}
 	}
 
 	void Draw()
@@ -151,32 +150,27 @@ void Enemy::ManagePattern(){
 			m_pattern_tmp = 0;
 		}
 	}//アニメーションループが有効ならば戻す
+		
+		//移動開始時刻になったなら加速度を設定する
+	if (m_movedata[m_pattern_seek].start == m_pattern_cnt) {
+		Vec2 distance = m_pos - m_movedata[m_pattern_seek].target;	//移動先と現在位置の距離を求める(pixel)
+		double duration = m_movedata[m_pattern_seek].dur;				//目標移動時間(frame)
+		m_acc = Vec2((2*distance)/(duration*duration));					//加速度を計算
+		m_vel = -Vec2((2*distance)/(duration));							//初速度を計算
+		m_pattern_seek++;											//次の移動に備える
+	}
+	m_pattern_tmp++;
+	Move(m_movedata[m_pattern_seek]);
 
-
-		//移動開始時間になったらtmpを初期化
-	if (m_pattern_cnt == m_movedata[m_pattern_seek].start) m_pattern_tmp = 0;
-		//経過時間が移動時間に等しくなったら(=移動が終了したら)seekをすすめる
-	if (m_pattern_tmp == m_movedata[m_pattern_seek].dur) m_pattern_seek++;
-		//もし現在のフレーム数が移動すべき時間内であれば,移動させる
-	if (m_movedata[m_pattern_seek].start <= m_pattern_cnt && m_pattern_cnt < m_movedata[m_pattern_seek].start + m_movedata[m_pattern_seek].dur)
-		Move(m_movedata[m_pattern_seek],m_pattern_tmp);
-
-	Println(m_pattern_cnt , L" Animation count");
-	Println(m_pattern_tmp , L" Template count");
-	Println(m_pattern_seek , L" Seek count");
-	Println(m_movedata[m_pattern_seek].start , L" startframe");
-	Println(m_movedata[m_pattern_seek].dur , L" durationframe");
+	Println(L"Enemy Pos ", m_pos);
+	if(m_pattern_seek > 0) Circle(m_movedata[m_pattern_seek-1].target, 16.0).draw(Palette::Coral);
 	m_pattern_cnt++;	//アニメーション用カウンタ
 	m_pattern_tmp++;	//アニメーション内一時格納用(アニメーション開始からの経過フレーム数の格納用)
 }
 
-void Enemy::Move(MoveData arg,int pastframe)
-{
-	double distX = arg.target.x - m_pos.x;
-	double distY = arg.target.y - m_pos.y;
-
-	m_pos.x += distX / 20;
-	m_pos.y += distY / 20;
+void Enemy::Move(MoveData arg){
+	m_vel += m_acc;
+	m_pos += m_vel;
 }
 
 void Enemy::Draw()
