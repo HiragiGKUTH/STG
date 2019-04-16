@@ -30,4 +30,5 @@ public:
 	Player();
 	void Update();
 	void Draw();
+	void HitCheck(Shot_e & shot_e);
 };

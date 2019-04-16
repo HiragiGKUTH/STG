@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "Player.hpp"
 #include "GameDefine.hpp"
 #include <cmath>
 
@@ -22,8 +23,12 @@ public:
         , m_kind(kind)
         , m_ang(ang)
 		, m_update(this,&Shot_e::Update,CallGroup_Update)
-		, m_draw(this,&Shot_e::Draw,CallGroup_Draw,CallPriority_Enemy_Shot){}
+		, m_draw(this,&Shot_e::Draw,CallGroup_Draw,CallPriority_Enemy_Shot)
+	{
+		m_sender.Register(this);
+	}
 private:
+
 	void Update()
 	{
 		m_vel.x = cos(m_ang);
@@ -38,6 +43,16 @@ private:
 	void Draw()
 	{
 		m_col.draw(Palette::White);
+	}
+public:
+	Circle GetCol()
+	{
+		return m_col;
+	}
+
+	void SetDestroy()
+	{
+		this->Destroy();
 	}
 };
 
@@ -99,23 +114,15 @@ void Enemy::Update(){
 void Enemy::ManagePattern(){
 		//弾幕制御
 	switch (m_kind){
-		case 0:{	//テスト弾幕1 さとり妖怪のアレ
-			if (m_pattern_cnt == m_movedata[m_pattern_seek].start) {
-				int way = 36;
-				for (int i = 0; i < way; i++)
-					for(int j = 0;j < 3;j++)
-						Create<Shot_e>(m_pos, (double)(m_cnt % 30)/40 + 2+j*0.5, Radians((360 / way)*i)+Radians(m_cnt), 0);
-			}
+		case 0:{
+
 			break;
 		}
-		case 1:{	//テスト弾幕2 分からん。
-			if (m_cnt % 1 == 0) {
-				int way = 4;
-				for (int i = 0; i < way; i++)
-					Create<Shot_e>(m_pos, (double)(m_cnt % 30) / 40 + 2, Radians((360 / way)*i)+m_cnt*0.3, 0);
-			}
+		case 1:{
+
 			break;
 		}
+
 		case 2: {
 			//ココに追加
 			break;
@@ -143,31 +150,29 @@ void Enemy::ManagePattern(){
 	}
 
 		//移動制御
-	if (m_pattern_loop) {
-		m_pattern_cnt %= m_pattern_len;
-		if (m_pattern_seek == m_movedata.size()-1) {
-			m_pattern_seek = 0;
-			m_pattern_cnt = 0;
-			//	m_pattern_tmp = 0;
+	{
+		m_pattern_cnt++;	//アニメーション用カウンタ
+		m_pattern_tmp++;	//アニメーション内一時格納用(アニメーション開始からの経過フレーム数の格納用)
+
+		if (m_pattern_loop) {
+			m_pattern_cnt %= m_pattern_len;
+			if (m_pattern_seek == m_movedata.size() - 1) {
+				m_pattern_seek = 0;
+				m_pattern_cnt = 0;
+				m_pattern_tmp = 0;
+			}
 		}
-	}
 		//移動開始時刻になったなら加速度を設定する
-	if (m_movedata[m_pattern_seek].start == m_pattern_cnt) {
-		Vec2 distance = m_pos - m_movedata[m_pattern_seek].target;	//移動先と現在位置の距離を求める(pixel)
-		double duration = m_movedata[m_pattern_seek].dur;			//目標移動時間(frame)
-		m_acc = Vec2((2.0*distance)/(duration*duration));				//加速度を計算
-		m_v0 = -Vec2((2.0*distance)/(duration));						//初速度を計算
-		m_pattern_seek++;											//次の移動に備える
-		m_pattern_tmp = 0;
+		if (m_movedata[m_pattern_seek].start == m_pattern_cnt) {
+			Vec2 distance = m_pos - m_movedata[m_pattern_seek].target;	//移動先と現在位置の距離を求める(pixel)
+			double duration = m_movedata[m_pattern_seek].dur;			//目標移動時間(frame)
+			m_acc = Vec2((2.0*distance) / (duration*duration));				//加速度を計算
+			m_v0 = -Vec2((2.0*distance) / (duration));						//初速度を計算
+			m_pattern_seek++;											//次の移動に備える
+			m_pattern_tmp = 0;
+		}
+		Move(m_movedata[m_pattern_seek]);
 	}
-
-
-	Move(m_movedata[m_pattern_seek]);
-
-	Println(L"Enemy Pos ", m_pos);
-	if(m_pattern_seek > 0) Circle(m_movedata[m_pattern_seek-1].target, 16.0).draw(Palette::Coral);
-	m_pattern_cnt++;	//アニメーション用カウンタ
-	m_pattern_tmp++;	//アニメーション内一時格納用(アニメーション開始からの経過フレーム数の格納用)
 }
 
 void Enemy::Move(MoveData arg){

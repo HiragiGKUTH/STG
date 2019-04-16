@@ -1,6 +1,7 @@
 #include "GameDefine.hpp"
 
 #include "Player.hpp"
+#include "Enemy.cpp"
 #include <rnfs.h>
 
 class Shot_p : public Task
@@ -9,6 +10,7 @@ private:
 		//タスクシステム用
 	TaskCall m_update;
 	TaskCall m_draw;
+	TaskSend m_sender;
 
 	Vec2 m_pos;		//座標
 	Vec2 m_vel;		//速度
@@ -26,7 +28,10 @@ public:
 		, m_ang(ang)
 		, m_kind(kind)
 		, m_update(this,&Shot_p::Update,CallGroup_Update)
-		, m_draw(this,&Shot_p::Draw,CallGroup_Draw,CallPriority_Player_Shot){}
+		, m_draw(this,&Shot_p::Draw,CallGroup_Draw,CallPriority_Player_Shot)
+	{
+		m_sender.Register(this);
+	}
 private:
 	void Update()
 	{
@@ -49,12 +54,18 @@ Player::Player() : Task()
 	, m_draw(this, &Player::Draw,CallGroup_Draw,CallPriority_Player)
 {
 	m_sender.Register(this);
+	m_receiver.Register<Shot_e>(this,&Player::HitCheck);
 
 	m_SPEED = 6.0;
 	m_pos = Vec2(Window::Width() / 2, Window::Height() / 2);
 	m_vel = Vec2(0, 0);
 	m_col = Circle(m_pos, 24.0);
 	m_anim = Rect(0, 0, 32, 32);	//仮
+}
+
+void Player::HitCheck(Shot_e & shot_e)
+{
+	if (this->m_col.intersects(shot_e.GetCol)) shot_e.SetDestroy();
 }
 
 void Player::Update()

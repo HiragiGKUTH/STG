@@ -8,7 +8,7 @@
 
 GameMain::GameMain()
 {
-	
+
 }
 
 void GameMain::init()
